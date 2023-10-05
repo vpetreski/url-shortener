@@ -6,19 +6,21 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
+import java.lang.IllegalArgumentException
 
 @Service
 @Validated
 class UrlService(
-    @Value("\${info.app.url}") private val baseUrl: String,
     private val urlRepository: UrlRepository,
     private val util: Util
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @Transactional
-    fun shorten(@NotBlank long: String) : String {
-        // TODO - check if url is valid
+    fun shorten(long: String) : Url {
+        if (!long.startsWith("http://", ignoreCase = true) && !long.startsWith("https://", ignoreCase = true)) {
+            throw IllegalArgumentException("URL has to start with http:// or https://")
+        }
 
         var url = urlRepository.findByLong(long)
 
@@ -28,7 +30,7 @@ class UrlService(
             url = urlRepository.save(url)
         }
 
-        return "$baseUrl/${url.key}"
+        return url
     }
 
     fun redirect(@NotBlank key: String) : String {

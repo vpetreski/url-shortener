@@ -9,15 +9,16 @@ import java.net.URI
 
 @RestController
 class UrlRestController(
+    @Value("\${info.app.url}") private val baseUrl: String,
     @Value("\${info.app.permanent}")
     private val permanent: Boolean,
-    private val urlService: UrlService
+    private val urlService: UrlService,
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
     @PostMapping("/shorten")
     fun shorten(@RequestParam("long") long: String): ResponseEntity<String> {
-        return ResponseEntity.ok(urlService.shorten(long))
+        return ResponseEntity.ok("$baseUrl/${urlService.shorten(long).key}")
     }
 
     @GetMapping("/{key}")
