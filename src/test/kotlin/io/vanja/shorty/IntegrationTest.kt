@@ -18,7 +18,8 @@ class IntegrationTest(
         val longUrl = "https://www.amazon.com/Premium-Certified-Lunt-Solar-Eclipse/dp/B01NB09NHK/ref=sr_1_5?crid=PN1YC9S25IID&keywords=solar+eclipse+glasses&qid=1696508571&sprefix=%2Caps%2C168&sr=8-5"
         val url = urlService.shorten(longUrl)
 
-        assertThat(url.key).isEqualTo(util.toBase62(url.id!!))
         assertThat(url.long).isEqualTo(longUrl)
+        assertThat(url.key).isEqualTo(util.toBase62(url.id!!))
+        assertThat(urlService.redirect(url.key!!)).isEqualTo(longUrl)
     }
 }

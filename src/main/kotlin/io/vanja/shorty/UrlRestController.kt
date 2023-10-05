@@ -9,7 +9,8 @@ import java.net.URI
 
 @RestController
 class UrlRestController(
-    @Value("\${info.app.url}") private val baseUrl: String,
+    @Value("\${info.app.url}")
+    private val baseUrl: String,
     @Value("\${info.app.permanent}")
     private val permanent: Boolean,
     private val urlService: UrlService,
