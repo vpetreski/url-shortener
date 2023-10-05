@@ -9,12 +9,27 @@ data class ValidationError(var violations: MutableList<Violation> = mutableListO
 data class RestError(var message: String?)
 
 @Component
-class Util(
-    @Value("\${info.app.url}") private val webUrl: String,
-    @Value("\${server.port}") private val webPort: String
-) {
-    fun getWebBaseUrl(): String {
-        return "$webUrl:$webPort"
+class Util {
+    fun toBase62(number: Long): String {
+        return toBase(number, 62)
+    }
+
+    private fun toBase(number: Long, base: Int): String {
+        val alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+        if (number < base) {
+            return alphabet[number.toInt()].toString()
+        }
+
+        var value = number
+        val sb = StringBuilder()
+        while (value != 0L) {
+            val remind = (value % base).toInt()
+            value = (value - remind) / base
+            sb.append(alphabet[remind])
+        }
+
+        return sb.toString()
     }
 
     /**
@@ -24,7 +39,14 @@ class Util(
      */
     fun restError(e: ConstraintViolationException): RestError {
         val validationError = ValidationError()
-        e.constraintViolations.forEach { validationError.violations.add(Violation(it.propertyPath.toString(), it.message)) }
+        e.constraintViolations.forEach {
+            validationError.violations.add(
+                Violation(
+                    it.propertyPath.toString(),
+                    it.message
+                )
+            )
+        }
 
         return RestError(validationError.violations.joinToString(". ") {
             val field: String = if (it.fieldName.contains(".")) {

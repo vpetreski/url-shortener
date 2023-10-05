@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size
 @Entity
 open class Url(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     open var id: Long? = null,
 
@@ -19,5 +19,5 @@ open class Url(
     @Size(max = 255)
     @NotNull
     @Column(name = "key", nullable = false)
-    open var key: String? = null
+    open var key: String? = ""
 )
