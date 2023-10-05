@@ -54,3 +54,4 @@ Run tests with `just test`.
 - Database scaling: Database replication and sharding are common techniques.
 - Analytics: data is increasingly important for business success. Integrating an analytics solution to the URL shortener could help to answer important questions like how many people click on a link? When do they click the link? Etc...
 - Some monetization ideas: https://bitly.com/pages/pricing
+- The security risk with a shortened URL is you cannot tell where you are going when you click the link, you have to trust the sender. Potential mitigations is preview mode. By prepending 'preview' to a URL shortener, the service does not send you directly to the destination website. Instead, this takes you to a landing page that gives you preview of where you will ultimately go.
