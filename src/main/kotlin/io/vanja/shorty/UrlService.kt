@@ -2,11 +2,9 @@ package io.vanja.shorty
 
 import jakarta.validation.constraints.NotBlank
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
-import java.lang.IllegalArgumentException
 
 @Service
 @Validated
@@ -34,6 +32,6 @@ class UrlService(
     }
 
     fun redirect(@NotBlank key: String) : String {
-        return urlRepository.findByKey(key)!!.long ?: throw DoesNotExistException("URL doesn't exist!")
+        return urlRepository.findByKey(key)?.long ?: throw DoesNotExistException("URL doesn't exist!")
     }
 }

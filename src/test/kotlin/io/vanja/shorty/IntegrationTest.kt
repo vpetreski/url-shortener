@@ -15,6 +15,10 @@ class IntegrationTest(
             urlService.shorten("")
         }.withMessage("URL has to start with http:// or https://")
 
+        Assertions.assertThatExceptionOfType(DoesNotExistException::class.java).isThrownBy {
+            urlService.redirect("xyz")
+        }.withMessage("URL doesn't exist!")
+
         val longUrl = "https://www.amazon.com/Premium-Certified-Lunt-Solar-Eclipse/dp/B01NB09NHK/ref=sr_1_5?crid=PN1YC9S25IID&keywords=solar+eclipse+glasses&qid=1696508571&sprefix=%2Caps%2C168&sr=8-5"
         val url = urlService.shorten(longUrl)
 
