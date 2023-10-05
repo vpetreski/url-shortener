@@ -46,7 +46,7 @@ Run tests with `just test`.
 
 ## Architecture
 
-- By default, service will use 302 redirect (temporarily moved) because it allows us to do analytics and monetization. However, if that's not important and performance is top priority, then you can set `info.app.permanent` to `true` in `application.yml and service will then use 301 redirect (permanently moved) where browser will do caching.
+- By default, service will use 302 redirect (temporarily moved) because it allows us to do analytics and monetization. However, if that's not important and performance is top priority, then you can set `info.app.permanent` to `true` in `application.yml` and service will then use 301 redirect (permanently moved) where browser will do caching.
 - The hash value consists of characters from [0-9, a-z, A-Z], containing 10 + 26 + 26 = 62 possible characters. To figure out the length of hash value, find the smallest n such that 62^n ≥ 365 billion. The system must support up to 365 billion URLs based on the back of the envelope estimation. So we use Base 62 conversion. Alternative could be to use CRC32 hash + collision resolution, but that would require additional hits to DB.
 - Infrastructure: Client > Load Balancer > Server > Cache > DB
 - Rate limiter: a potential security problem we could face is that malicious users send an overwhelmingly large number of URL shortening requests. Rate limiter helps to filter out requests based on IP address or other filtering rules.
