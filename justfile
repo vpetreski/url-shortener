@@ -13,7 +13,3 @@ run:
 
 test:
   ./gradlew clean test
-
-# Some Script
-some-script:
-  ./scripts/some-script.sh
