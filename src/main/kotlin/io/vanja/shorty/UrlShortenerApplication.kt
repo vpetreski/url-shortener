@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ArcCloudApplication
+class UrlShortenerApplication
 
 fun main(args: Array<String>) {
-    runApplication<ArcCloudApplication>(*args)
+    runApplication<UrlShortenerApplication>(*args)
 }
