@@ -34,13 +34,13 @@ curl -w '\n' --location 'http://localhost/shorten' \
 --data-urlencode 'long=https://www.amazon.com/Premium-Certified-Lunt-Solar-Eclipse/dp/B01NB09NHK/ref=sr_1_5?crid=PN1YC9S25IID&keywords=solar+eclipse+glasses&qid=1696508571&sprefix=%2Caps%2C168&sr=8-5'
 ```
 
-It will return shortened URL:
+It will return shortened URL similar to this:
 
 ```text
 http://localhost/mf
 ```
 
-Now, let's try redirect and open http://localhost/mf in your browser - it should redirect to the original long URL.
+Now, let's try redirect and open generated link http://localhost/mf in your browser - it should redirect to the original long URL.
 
 Run tests with `just test`.
 
