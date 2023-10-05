@@ -40,7 +40,7 @@ It will return shortened URL:
 http://localhost/mf
 ```
 
-Now, let's try redirect and open http://localhost/mf in your browser - it should redirect to the original long URl.
+Now, let's try redirect and open http://localhost/mf in your browser - it should redirect to the original long URL.
 
 Run tests with `just test`.
 
