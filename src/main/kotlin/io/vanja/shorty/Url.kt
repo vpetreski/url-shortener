@@ -3,6 +3,7 @@ package io.vanja.shorty
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
+import java.time.OffsetDateTime
 
 @Entity
 open class Url(
@@ -19,5 +20,7 @@ open class Url(
     @Size(max = 255)
     @NotNull
     @Column(name = "key", nullable = false)
-    open var key: String? = ""
+    open var key: String? = "",
+
+    open var created: OffsetDateTime? = OffsetDateTime.now()
 )

@@ -17,13 +17,7 @@ class RestExceptionAdvice(private val util: Util) {
         return util.restError(e)
     }
 
-    @ExceptionHandler(value = [DoesNotExistException::class])
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    fun handleDoesNotExistsException(e: DoesNotExistException): RestError {
-        return util.restError(e)
-    }
-
-    @ExceptionHandler(value = [IllegalArgumentException::class])
+    @ExceptionHandler(value = [IllegalArgumentException::class, UrlException::class])
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     fun handleIllegalArgumentException(e: IllegalArgumentException): RestError {
         return util.restError(e)

@@ -2,6 +2,7 @@ info:
   app:
     name: URL Shortener
     permanent: false
+    expire: 365
     url: http://localhost
 logging:
   level:

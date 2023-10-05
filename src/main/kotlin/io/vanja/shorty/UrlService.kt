@@ -2,13 +2,19 @@ package io.vanja.shorty
 
 import jakarta.validation.constraints.NotBlank
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.validation.annotation.Validated
+import java.time.Duration
+import java.time.OffsetDateTime
+import kotlin.math.absoluteValue
 
 @Service
 @Validated
 class UrlService(
+    @Value("\${info.app.expire}")
+    private val expireInDays: Int,
     private val urlRepository: UrlRepository,
     private val util: Util
 ) {
@@ -32,6 +38,12 @@ class UrlService(
     }
 
     fun redirect(@NotBlank key: String) : String {
-        return urlRepository.findByKey(key)?.long ?: throw DoesNotExistException("URL doesn't exist!")
+        val url = urlRepository.findByKey(key) ?: throw UrlException("URL doesn't exist!")
+
+        if (Duration.between(OffsetDateTime.now(), url.created).toDays().absoluteValue > expireInDays) {
+            throw UrlException("Link expired!")
+        }
+
+        return url.long!!
     }
 }

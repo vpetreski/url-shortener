@@ -7,6 +7,7 @@ Design scope and back of the envelope estimation:
 - Shortened URL can be a combination of numbers (0-9) and characters (a-z, A-Z)
 - URL shortening: given a long URL => return a much shorter URL
 - URL redirecting: given a shorter URL => redirect to the original URL
+- URL will expire after configured number of days, which is 365 by default (`info.app.expire` in `application.yml`)
 - High availability, scalability, and fault tolerance considerations
 - Write operation per second: 100 million / 24 / 3600 = 1160
 - Read operation: Assuming ratio of read operation to write operation is 10:1, read operation per second: 1160 * 10 = 11,600
