@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  arc-cloud:
+    image: 'url/shortener:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: url-shortener
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    networks:
+      - backend_net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/url-shortener
+  db:
+    image: 'postgres:16.0-alpine'
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend_net
+    environment:
+      POSTGRES_USER: url-shortener
+      POSTGRES_PASSWORD: url-shortener
+
+volumes:
+  db_data:
+
+networks:
+  backend_net:
