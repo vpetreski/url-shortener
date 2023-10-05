@@ -8,7 +8,7 @@ local:
 # Run full backend via Docker
 run:
   docker-compose down
-  docker rmi url/shortener:latest
+  docker rmi -f url/shortener:latest
   docker-compose -p url-shortener up
 
 test:
